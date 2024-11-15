@@ -10,13 +10,14 @@ COPY . /app
 # Install any needed packages specified in requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Expose the port that Render uses to bind to
+# Expose the port Render uses to bind to
 EXPOSE 10000
 
-# Set environment variable to tell Flask to run on the correct port
-ENV FLASK_APP=app.py
+# Set environment variables for Flask
+ENV FLASK_APP=flask_server.py
 ENV FLASK_RUN_HOST=0.0.0.0
 ENV PORT=10000
+ENV FLASK_ENV=development 
 
-# Run Flask app
-CMD ["flask", "run", "--host=0.0.0.0", "--port=$PORT"]
+# Run Flask app using exec to pass environment variables correctly
+CMD ["flask", "run", "--host=0.0.0.0", "--port", "10000"]

@@ -24,7 +24,9 @@ def cart():
     return "Product not found", 404
 
 def run():
-    app.run(host='0.0.0.0', port=3000)
+    port = int(os.environ.get("PORT", 3000))  # Default to 3000 if PORT is not set
+    app.run(host='0.0.0.0', port=port)
+
 
 def keep_alive():
     t = Thread(target=run)
